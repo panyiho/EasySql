@@ -23,16 +23,17 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
 **表结构**
 
-    EasySql提供了两种方式去描述一个表结构，一个是注解，一个是自定义继承的方式，如果你只是简单的想要做一些数据的持久化工作并且追求便利性的话，可以直接利用注解方式，如果你想要更大的灵活性，和做更多的自定义的工作，可以用自定义继承的方式。
+   EasySql提供了两种方式去描述一个表结构，一个是注解，一个是自定义继承的方式，如果你只是简单的想要做一些数据的持久化工作并且追求便利性的话，可以直接利用注解方式，如果你想要更大的灵活性，和做更多的自定义的工作，可以用自定义继承的方式。
     
 **1.注解方式**
 
-     EasySql提供了两个注解描述，一个是描述表的，一个是描述列的，分别为**Column**和**Table**，用法如下：
+   EasySql提供了两个注解描述，一个是描述表的，一个是描述列的，分别为**Column**和**Table**，用法如下：
    
 
       @Table(name = "persion", onCreated = "CREATE UNIQUE INDEX age_index ON download(age)")
       
       @Column(name = "key",isId = true,autoGen = true, property = "UNIQUE")
+      
 其中，**Table**和**Column**的**name**属性分别代表着数据库中的**表名**和**列名**，
 而Table中的onCreated 属性，则表示Sqlite在回调onCreate之后，执行的Sql语句，你可以根据需要自定义的添加一些Sql语句，例如像事例说的那样，添加一个索引。
 **Column**的**isId**属性，则表示是否是主键，**autogen**则表示是否自增，**property**则提供能力给你添加更多的列描述。
