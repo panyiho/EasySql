@@ -79,13 +79,14 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
      * @return T
      */
     public abstract T cursorToBean(Cursor cursor);
+```
 
 同时也提供了**onUpgrade** 和 **onDowngrade**的方法，可供复写，用来兼容数据库升级和降级的情况。
 继承了之后，还需要应用，需要在创建**SqliteDBConfig**的时候通过**addTableMapping**方法添加进去这个类和描述的映射就可以了：事例代码如下：
-
+```java
     EasySql.hatch(new SqliteDBConfig.Builder().addTableMapping(Test.class,new TestMapping).build(this));
-   
 ```
+
 
 ----------
 
