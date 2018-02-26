@@ -17,7 +17,13 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
 ```java
 
- EasySql.hatch(new SqliteDBConfig.Builder().addTableMapping(Test.class,new TestMapping).setVersion().setLogger().setDataBaseName().setOnDbVersionChangeListener().build(this));
+ EasySql.hatch(new SqliteDBConfig.Builder()
+      .addTableMapping(Test.class,new TestMapping)
+      .setVersion()
+      .setLogger()
+      .setDataBaseName()
+      .setOnDbVersionChangeListener()
+      .build(this));
  
 ```
 
