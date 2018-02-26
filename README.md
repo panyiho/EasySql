@@ -15,8 +15,11 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
 初始化的代码如下:
 
-    EasySql.hatch(new SqliteDBConfig.Builder().addTableMapping(Test.class,new TestMapping).setVersion().setLogger().setDataBaseName().setOnDbVersionChangeListener().build(this));
+```java
 
+ EasySql.hatch(new SqliteDBConfig.Builder().addTableMapping(Test.class,new TestMapping).setVersion().setLogger().setDataBaseName().setOnDbVersionChangeListener().build(this));
+ 
+```
 
 ----------
 
@@ -29,10 +32,13 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
    EasySql提供了两个注解描述，一个是描述表的，一个是描述列的，分别为**Column**和**Table**，用法如下：
    
+```java
 
-      @Table(name = "persion", onCreated = "CREATE UNIQUE INDEX age_index ON download(age)")
-      
-      @Column(name = "key",isId = true,autoGen = true, property = "UNIQUE")
+   @Table(name = "persion", onCreated = "CREATE UNIQUE INDEX age_index ON download(age)")
+    
+   @Column(name = "key",isId = true,autoGen = true, property = "UNIQUE")
+   
+ ```
       
 其中，**Table**和**Column**的**name**属性分别代表着数据库中的**表名**和**列名**，
 而Table中的onCreated 属性，则表示Sqlite在回调onCreate之后，执行的Sql语句，你可以根据需要自定义的添加一些Sql语句，例如像事例说的那样，添加一个索引。
@@ -41,22 +47,24 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 **2.自定义继承方式**
 
    自定义继承的方式，其实就是自己写代码实现了，只需要继承TableMapping这个类，并实现里面的abstract方法就可以了，需要复写以下几个方法：
+   
+```java 
 
-    /**
+  /**
      * 获取表名，表名字直接定义在这里
      *
      * @return
      */
     public abstract String getTableName();
     
-    /**
+  /**
      * 生成列，列的定义在这里
      *
      * @return
      */
     public abstract List<ColumnMapping> generateCloumn();
     
-    /**
+ /**
      * 这里设置目标类和contentvalue的转换和映射
      *
      * @param bean
@@ -64,7 +72,7 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
      */
     public abstract ContentValues beanToContentValues(T bean);
     
-    /**
+ /**
      * 这里设置目标类和Cursor的转换和映射T
      *
      * @param cursor
@@ -77,7 +85,7 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
     EasySql.hatch(new SqliteDBConfig.Builder().addTableMapping(Test.class,new TestMapping).build(this));
    
-
+```
 
 ----------
 
@@ -85,14 +93,17 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
 查询操作就是一个链式调用的过程，可以很方便直观的组合各种查询条件，例如where，or，limit,offset，orderBy等
 
-       EasySql.getDefault().query(Persion.class)
+```java
+
+   EasySql.getDefault().query(Persion.class)
        .where("age","BETWEEN",new int[]{10,24})
        .or("sex","=","man")
        .limit(100)
        .offset(10)
        .orderBy("age")
        .all();
-    
+       
+ ```   
 
 
 ----------
@@ -100,10 +111,11 @@ EasySql的初始化不需要太多复杂的操作，只需要根据需要，初�
 
   增删改差操作跟查询操作一样，使用非常方便。有多个重构方法，可供选择，事例代码如下：
    
-
-        EasySql.getDefault().curd(Persion.class).insert()
-        EasySql.getDefault().curd(Persion.class).update()
-        EasySql.getDefault().curd(Persion.class).delete()
-        EasySql.getDefault().curd(Persion.class).deleteAll()
-        EasySql.getDefault().curd(Persion.class).deleteBy()
-        EasySql.getDefault().curd(Persion.class).deleteById()
+```java
+  EasySql.getDefault().curd(Persion.class).insert()
+  EasySql.getDefault().curd(Persion.class).update()
+  EasySql.getDefault().curd(Persion.class).delete()
+  EasySql.getDefault().curd(Persion.class).deleteAll()
+  EasySql.getDefault().curd(Persion.class).deleteBy()
+  EasySql.getDefault().curd(Persion.class).deleteById()
+```
