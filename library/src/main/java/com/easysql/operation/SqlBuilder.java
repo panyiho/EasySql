@@ -23,7 +23,7 @@ public final class SqlBuilder {
         if (tableMapping == null) return null;
 
         StringBuilder builder = new StringBuilder("DELETE FROM ");
-        builder.append("\"").append(tableMapping).append("\"");
+        builder.append("\"").append(tableMapping.getTableName()).append("\"");
         return builder.toString();
     }
 
